@@ -1,0 +1,48 @@
+﻿@model PlusUltraContacts.Domain.Entities.Contact
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<h4>Contact</h4>
+<div class="row">
+    <div class="my-5 col-md-6">
+        <h2 class="display-4">Dados do<br /><span class=" text-primary">aniversariante</span></h2>
+        <p class="lead">Sem essas informações vai ficar difícil de te ajudar :)</p>
+    </div>
+    <div class="col-md-6 d-none d-md-block" style=" background: url('https://i.ibb.co/rbHsCms/undraw-Online-party-re-7t6g.png') no-repeat center center / contain; min-height: 300px;">
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DayOfBirth" class="control-label"></label>
+                <input asp-for="DayOfBirth" class="form-control" />
+                <span asp-validation-for="DayOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="btn btn-light" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
