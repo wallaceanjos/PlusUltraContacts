@@ -4,8 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-<h4>Contact</h4>
+<small class="breadcrumb">Contact/Create</small>
 <div class="row">
     <div class="my-5 col-md-6">
         <h2 class="display-4">Dados do<br /><span class=" text-primary">aniversariante</span></h2>
@@ -31,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DayOfBirth" class="control-label"></label>
-                <input asp-for="DayOfBirth" class="form-control" />
+                <input type="date" asp-for="DayOfBirth" class="form-control" />
                 <span asp-validation-for="DayOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">

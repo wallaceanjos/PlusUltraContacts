@@ -2,11 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
-    var pessoas = Model;
-    
-    pessoas = (from e in pessoas orderby e.DayOfBirth, DateTime.Now select e).ToList();
+    var contacts = Model;
     var rowCount = 1;
-
 
 }
 
@@ -16,11 +13,12 @@
         <div class="col-md-6 my-5">
             <h2 class="display-4">O presente que é bom <span class=" text-primary">lembrar</span> de trazer. xD</h2>
             <p class="lead">Aqui você pode ver todos os aniversariantes cadastrados e também fazer uma busca pelo nome</p>
-            <form action="/pessoas/listar" method="get" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar nome" aria-label="Search" name="buscar">
+
+            <form action="/Contacts/index" method="get" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar nome" aria-label="Search" name="search">
                 <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="submit">Buscar</button>
-                <a class="btn btn-primary text-white my-2 my-sm-0" href="/Contacts/Create" role="button"><i class="fas fa-plus-circle"></i> Cadastrar</a>
             </form>
+
         </div>
         <div class="col-md-6 d-none d-md-block" style="background: url(https://i.ibb.co/PhxZDjg/undraw-birthday-girl-n46w.png) no-repeat center center / contain; min-height: 300px;"></div>
     </div>
@@ -41,17 +39,17 @@
         </thead>
         <tbody>
 
-            @foreach (var pessoa in pessoas)
+            @foreach (var contact in contacts)
             {
                 <tr>
                     <th scope="row">@(rowCount)</th>
-                    <td>@pessoa.Name</td>
-                    <td>@pessoa.Phone</td>
-                    <td>@pessoa.DayOfBirth.ToString("dd/MM")</td>
-                    <td><a class="btn btn-success" href="/Pessoas/Detalhar?idnumber=@pessoa.Id" role="button"><i class="fas fa-search-plus"></i> Ver</a></td>
+                    <td>@contact.Name</td>
+                    <td>@contact.Phone</td>
+                    <td>@contact.DayOfBirth.ToString("dd/MM/yyyy")</td>
+                    <td><a class="btn btn-success" href="/Contacts/Details?id@contact.Id" role="button"><i class="fas fa-search-plus"></i> Ver</a></td>
                     <td>
-                        <a class="btn btn-primary" href="/Pessoas/Editar?idnumber=@pessoa.Id" role="button"><i class="fas fa-user-edit"></i> Editar</a>
-                        <a class="btn btn-danger" href="/Pessoas/Remover?idnumber=@pessoa.Id" role="button"><i class="fas fa-minus-circle"></i> Remover</a>
+                        <a class="btn btn-primary" href="/Contacts/Edit?id=@contact.Id" role="button"><i class="fas fa-user-edit"></i> Editar</a>
+                        <a class="btn btn-danger" href="/Contacts/Delete?id=@contact.Id" role="button"><i class="fas fa-minus-circle"></i> Remover</a>
                     </td>
                 </tr>
                 rowCount++;

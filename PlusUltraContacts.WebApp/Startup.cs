@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PlusUltraContacts.Domain.Interfaces;
 using PlusUltraContacts.Domain.Interfaces.Repositories;
+using PlusUltraContacts.Domain.Interfaces.Services;
 using PlusUltraContacts.Domain.Services;
 using PlusUltraContacts.Infrastructure;
 using PlusUltraContacts.Infrastructure.Repositories;
@@ -30,8 +32,9 @@ namespace PlusUltraContacts.WebApp
             services.AddControllersWithViews();
             services.AddDbContext<PlusUltraContactsDbContext>();
             services.AddScoped<ContactService>();
+            services.AddScoped<ICalcBirthDay, BirthDayManager>();
             //Repositório
-            services.AddScoped<IContactRepository, ContactDbRepository>();
+            services.AddScoped<IContactRepository, ContactFileRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

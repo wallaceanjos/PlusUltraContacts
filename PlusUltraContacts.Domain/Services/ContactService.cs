@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using PlusUltraContacts.Domain.Interfaces.Services;
 
 namespace PlusUltraContacts.Domain.Services
 {
 
-    public class ContactService
+    public class ContactService : IRegisterContactService, IGetContactService, IEditContactService, IDeleteContactService, ISearchContactService
     {
         /// <summary>
         /// 1) Requisitos Funcionais e Casos de Uso
@@ -51,7 +52,6 @@ namespace PlusUltraContacts.Domain.Services
         // Show all contacts Feature
         public IEnumerable<Contact> GetAllContacts()
         {
-
             return _repository.ReadAll();
         }
 
@@ -59,7 +59,6 @@ namespace PlusUltraContacts.Domain.Services
         public Contact GetContactById(Guid id)
         {
             return GetAllContacts().FirstOrDefault(c => c.Id == id);
-
         }       
 
         // Edit Contact Feature
@@ -75,16 +74,13 @@ namespace PlusUltraContacts.Domain.Services
         }
 
         // Search Feature
-        public IEnumerable<Contact> SearchByName(string name)
+        public IEnumerable<Contact> SearchByName(string search)
         {
-            if(name != null)
+            if(search != null)
             {
-                return _repository.ReadAll().Where(
-                    find => find.Name.ToLower().Contains(name.ToLower()));
+                return _repository.ReadAll().Where(find => find.Name.ToLower().Contains(search.ToLower()));
             }
-
             return _repository.ReadAll();
         }
-
     }
 }

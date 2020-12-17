@@ -10,6 +10,9 @@ namespace PlusUltraContacts.Domain.Entities
         public string Name { get; set; }
         public string Phone { get; set; }
         public DateTime DayOfBirth { get; set; }
+        public int NextBirthday { get; set; }
     }
+
+
 
 }

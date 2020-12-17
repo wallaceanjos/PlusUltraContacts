@@ -19,9 +19,9 @@ namespace PlusUltraContacts.Infrastructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PlusUltraContactsDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PlusUltraDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //< value > Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\Wallace\source\repos\PlusUltraContacts\PlusUltraContactsDb.mdf; Integrated Security = True </ value >
         }
     }
-
 
 }

@@ -8,23 +8,56 @@ using Microsoft.EntityFrameworkCore;
 using PlusUltraContacts.Domain.Entities;
 using PlusUltraContacts.Domain.Services;
 using PlusUltraContacts.Infrastructure;
+using PlusUltraContacts.Domain.Interfaces.Services;
 
 namespace PlusUltraContacts.WebApp.Controllers
 {
     public class ContactsController : Controller
     {
         private readonly ContactService _service;
+        private readonly ICalcBirthDay _birthdayService;
 
-        // Injeção de dependência - Camada de Serviços
-        public ContactsController(ContactService service)
+        public ContactsController(ContactService service, ICalcBirthDay birthdayService)
         {
             _service = service;
+            _birthdayService = birthdayService;
         }
+
 
         // GET: Contacts
         public IActionResult Index()
         {
-            return View(_service.GetAllContacts());
+            var contacts = _service.GetAllContacts().ToList();
+            var contact = new Contact();
+            List<String> aux = new List<String>();
+
+            for (int i = 0; i < contacts.Count; i++)
+            {
+                var data = contacts[i].DayOfBirth;
+                contact.NextBirthday = _birthdayService.CacularDiasAniversario(data);
+
+                contacts[i].NextBirthday = contact.NextBirthday;
+
+                if (contacts[i].Name != null)
+                {
+                    if (contacts[i].NextBirthday == 0)
+                    {
+                        aux.Add(contacts[i].Name);
+                    }
+                }
+
+            }
+
+            aux.Sort();
+            ViewBag.List = aux;
+
+            if (aux.Count == 0)
+            {
+                ViewBag.Message = "Nenhum aniversariante no dia!";
+            }
+
+            return View(contacts.OrderBy(u => u.NextBirthday));
+
         }
 
         // GET: Contacts/Details/5
@@ -54,7 +87,6 @@ namespace PlusUltraContacts.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name,Phone,DayOfBirth")] Contact contact)
         {
-           
             _service.RegisterContact(contact);
             return RedirectToAction(nameof(Index));
         }

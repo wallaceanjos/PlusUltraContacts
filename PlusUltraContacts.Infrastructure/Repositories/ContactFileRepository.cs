@@ -21,7 +21,41 @@ namespace PlusUltraContacts.Infrastructure.Repositories
         public void Delete(Guid id)
         {
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            var contacts = new List<Contact>();
+            var file = new System.IO.StreamReader(@"D:\contacts.csv", true);
+            var line = file.ReadLine();
+            
+            while (line != null && line != "")
+            {
+                var contactFields = line.Split(';');
+                var fileContact = new Contact();
+
+                fileContact.Id = Guid.Parse(contactFields[0]);
+                fileContact.Name = contactFields[1];
+                fileContact.Phone = contactFields[2];
+                fileContact.DayOfBirth = DateTime.Parse(contactFields[3]);
+                //fazer um if para comparar se contact == fileContact.id se for igual deleta 
+
+                contacts.Add(fileContact);
+
+                line = file.ReadLine();
+            }
+            //File.Delete
+            file.Close();
+
+            // Encontrando o contato pela id
+            var editContact = contacts.Find(c => c.Id == id);
+            contacts.Remove(editContact);
+
+            // Criando um arquivo com a lista nova
+            var updatefile = new System.IO.StreamWriter(@"D:\contacts.csv", false);          
+            foreach (var c in contacts)
+            {
+                updatefile.WriteLine(c.Id + ";" + c.Name + ";" + c.Phone + ";" + c.DayOfBirth);
+            }
+            updatefile.Close();
+                
 
         }
 
@@ -56,7 +90,6 @@ namespace PlusUltraContacts.Infrastructure.Repositories
         {
             //throw new NotImplementedException();
             var contacts = new List<Contact>();
-
             var file = new System.IO.StreamReader(@"D:\contacts.csv", true);
             var line = file.ReadLine();
             
@@ -79,22 +112,26 @@ namespace PlusUltraContacts.Infrastructure.Repositories
             file.Close();
 
             // Encontrando o contato pela id
-            var listContact = contacts.Find(c => c.Id == contact.Id);
+            var editContact = contacts.Find(c => c.Id == contact.Id);
 
 
-            // Editando este contato
-            listContact.Id = contact.Id;
-            listContact.Name = contact.Name;
-            listContact.Phone = contact.Phone;
-            listContact.DayOfBirth = contact.DayOfBirth;
+            // Editando este contato da lista
+            editContact.Id = contact.Id;
+            editContact.Name = contact.Name;
+            editContact.Phone = contact.Phone;
+            editContact.DayOfBirth = contact.DayOfBirth;
             
-
-            var updatefile = new System.IO.StreamWriter(@"D:\contacts.csv", true);
-            if(listContact.Id == contact.Id)
+            // Criando um arquivo com a lista nova
+            var updatefile = new System.IO.StreamWriter(@"D:\contacts.csv", false);
+           
+            if (editContact.Id == contact.Id)
             {
-                updatefile.WriteLine(listContact.Id + ";" + listContact.Name + ";" + listContact.Phone + ";" + listContact.DayOfBirth);
+                foreach (var c in contacts)
+                {
+                    updatefile.WriteLine(c.Id + ";" + c.Name + ";" + c.Phone + ";" + c.DayOfBirth);
+                }
                 updatefile.Close();
-
+                
             }
 
 
