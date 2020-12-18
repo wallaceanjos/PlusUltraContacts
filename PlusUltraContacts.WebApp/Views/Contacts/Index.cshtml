@@ -3,9 +3,11 @@
 @{
     ViewData["Title"] = "Index";
     var contacts = Model;
-    var rowCount = 1;
-
+    var rowCountTable1 = 1;
+    var rowCountTable2 = 1;
+    var cakeDay = false;
 }
+
 
 <div class="container">
     <!-- START THE FEATURETTES -->
@@ -25,7 +27,48 @@
 </div>
 
 <div class="container">
+    <a class="btn btn-primary text-white" href="/Contacts/Create" role="button"><i class="fas fa-plus-circle"></i> Cadastrar</a>
     <hr class="my-5" />
+    <!--
+    Tabela dos aniversariantes do dia
+    -->
+    <table class="table table-borderless table-hover cakeday">
+        <thead>
+            <tr>
+                <th scope="col">Nº</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Celular</th>
+                <th scope="col">Aniversário</th>
+                <th scope="col">Detalhes</th>
+                <th scope="col">Opções</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var contact in contacts)
+            {
+            @if (contact.DayOfBirth.ToString("dd/MM") == DateTime.Now.ToString("dd/MM"))
+                {
+                    cakeDay = true;
+            <tr>
+                <th scope="row">@(rowCountTable1)</th>
+                <td>@contact.Name</td>
+                <td>@contact.Phone</td>
+                <td>@contact.DayOfBirth.ToString("dd/MM/yyyy")</td>
+                <td><a class="btn btn-success" href="/Contacts/Details?id=@contact.Id" role="button"><i class="fas fa-search-plus"></i> Ver</a></td>
+                <td>
+                    <a class="btn btn-primary" href="/Contacts/Edit?id=@contact.Id" role="button"><i class="fas fa-user-edit"></i> Editar</a>
+                    <a class="btn btn-danger" href="/Contacts/Delete?id=@contact.Id" role="button"><i class="fas fa-minus-circle"></i> Remover</a>
+                </td>
+            </tr>
+                    rowCountTable1++;
+                }
+            }
+
+
+        </tbody>
+    </table>
+
     <table class="table table-borderless table-hover">
         <thead>
             <tr>
@@ -37,23 +80,83 @@
                 <th scope="col">Opções</th>
             </tr>
         </thead>
+
         <tbody>
 
             @foreach (var contact in contacts)
             {
-                <tr>
-                    <th scope="row">@(rowCount)</th>
-                    <td>@contact.Name</td>
-                    <td>@contact.Phone</td>
-                    <td>@contact.DayOfBirth.ToString("dd/MM/yyyy")</td>
-                    <td><a class="btn btn-success" href="/Contacts/Details?id@contact.Id" role="button"><i class="fas fa-search-plus"></i> Ver</a></td>
-                    <td>
-                        <a class="btn btn-primary" href="/Contacts/Edit?id=@contact.Id" role="button"><i class="fas fa-user-edit"></i> Editar</a>
-                        <a class="btn btn-danger" href="/Contacts/Delete?id=@contact.Id" role="button"><i class="fas fa-minus-circle"></i> Remover</a>
-                    </td>
-                </tr>
-                rowCount++;
+            <tr>
+                <th scope="row">@(rowCountTable2)</th>
+                <td>@contact.Name</td>
+                <td>@contact.Phone</td>
+                <td>@contact.DayOfBirth.ToString("dd/MM/yyyy")</td>
+                <td><a class="btn btn-success" href="/Contacts/Details?id=@contact.Id" role="button"><i class="fas fa-search-plus"></i> Ver</a></td>
+                <td>
+                    <a class="btn btn-primary" href="/Contacts/Edit?id=@contact.Id" role="button"><i class="fas fa-user-edit"></i> Editar</a>
+                    <a class="btn btn-danger" href="/Contacts/Delete?id=@contact.Id" role="button"><i class="fas fa-minus-circle"></i> Remover</a>
+                </td>
+            </tr>
+                rowCountTable2++;
             }
+            @if (cakeDay == true)
+{
+            <style>
+                .cakeday {
+                    box-shadow: 0px 0px 60px -10px #4d21fc;
+                    border-radius: 20px;
+                    background-color: #6a44ff;
+                    color: white;
+                    margin-bottom: 60px;
+                    margin-top: 80px;
+                }
+                .cakeday::before {
+                    content: "PARABÉNS";
+                    color: white;
+                    font-style: italic;
+                    text-align: center;
+                    font-size: 1.75rem;
+                    font-weight: bold;
+                    margin: -111px auto;
+                    position: absolute;
+                    box-shadow: 0px 0px 0px 0px black;
+                    padding: 10px 30px 29px 30px;
+                    border-radius: 40px 40px 0px 0px;
+                    background: #6a44ff;
+                }
+            </style>
+}
+            @if (cakeDay == false)
+{
+            <style>
+                .cakeday {
+
+                }
+                .cakeday > thead {
+                    display: none;
+                }
+
+                    .cakeday::before {
+                        content: "Ninguem na lista faz aniversário";
+                        color: black;
+                        font-style: italic;
+                        text-align: center;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        margin: -80px auto;
+                        left: calc(50% - 152px);
+                        position: absolute;
+                        padding: 20px 30px;
+                        border-radius: 40px;
+                        background: white;
+                        box-shadow: 0px 0px 0px 1px #e5e5e5;
+                    }
+
+                .cakeday > thead {
+                    line-height: 300%;
+                }
+            </style>
+}
         </tbody>
     </table>
 </div>

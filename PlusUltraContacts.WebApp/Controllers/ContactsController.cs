@@ -1,14 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using PlusUltraContacts.Domain.Entities;
+using PlusUltraContacts.Domain.Interfaces.Services;
+using PlusUltraContacts.Domain.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using PlusUltraContacts.Domain.Entities;
-using PlusUltraContacts.Domain.Services;
-using PlusUltraContacts.Infrastructure;
-using PlusUltraContacts.Domain.Interfaces.Services;
 
 namespace PlusUltraContacts.WebApp.Controllers
 {
@@ -143,5 +139,16 @@ namespace PlusUltraContacts.WebApp.Controllers
             _service.DeleteContact(id);
             return RedirectToAction(nameof(Index));
         }
+
+        // POST: Contacts/Search/5
+        [HttpGet]
+        public IActionResult Index(string search)
+        {
+            //_service   = new PessoaRepository();
+
+            IEnumerable<Contact> contacts = _service.SearchByName(search);
+            return View(contacts);
+        }
+
     }
 }

@@ -5,7 +5,14 @@
 }
 
 <small class="breadcrumb">Contact/Edit</small>
-
+<div class="row">
+    <div class="my-5 col-md-6">
+        <h2 class="display-4">Editar <br /><span class=" text-primary">aniversariante</span></h2>
+        <p class="lead">Preencha com cuidado para não deixar passar ;)</p>
+    </div>
+    <div class="col-md-6 d-none d-md-block" style=" background: url('https://i.ibb.co/XXBZdSR/undraw-fitting-piece-iilo.png') no-repeat center center / contain; min-height: 300px;">
+    </div>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,19 +31,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="DayOfBirth" class="control-label"></label>
-                <input asp-for="DayOfBirth" class="form-control" />
+                <input type="date" asp-for="DayOfBirth" class="form-control" />
                 <span asp-validation-for="DayOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary mr-sm-2" />
+                <a class="btn btn-light" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

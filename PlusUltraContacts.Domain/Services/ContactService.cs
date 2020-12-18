@@ -78,7 +78,7 @@ namespace PlusUltraContacts.Domain.Services
         {
             if(search != null)
             {
-                return _repository.ReadAll().Where(find => find.Name.ToLower().Contains(search.ToLower()));
+                return _repository.ReadAll().Where(c => c.Name.ToLower().Contains(search.ToLower()));
             }
             return _repository.ReadAll();
         }

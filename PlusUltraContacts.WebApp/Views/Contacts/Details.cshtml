@@ -5,8 +5,14 @@
 }
 
 <small class="breadcrumb">Contact/Details</small>
-
-
+<div class="row">
+    <div class="my-5 col-md-6">
+        <h2 class="display-4">Detalhes do <br /><span class=" text-primary">aniversariante</span></h2>
+        <p class="lead">Nada que você já não saiba o-o</p>
+    </div>
+    <div class="col-md-6 d-none d-md-block" style=" background: url('https://i.ibb.co/vQtCrSF/undraw-Checklist-re-2w7v.png') no-repeat center center / contain; min-height: 300px;">
+    </div>
+</div>
 <div>
     <h4>Contact</h4>
     <hr />
@@ -32,6 +38,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary mr-sm-2" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-light" asp-action="Index">Back to List</a>
 </div>

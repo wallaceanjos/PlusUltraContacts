@@ -34,7 +34,7 @@ namespace PlusUltraContacts.WebApp
             services.AddScoped<ContactService>();
             services.AddScoped<ICalcBirthDay, BirthDayManager>();
             //Repositório
-            services.AddScoped<IContactRepository, ContactFileRepository>();
+            services.AddScoped<IContactRepository, ContactDbRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
